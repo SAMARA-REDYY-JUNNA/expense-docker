@@ -3,10 +3,22 @@ name: expense
 networks:
   default:
     name: expense
+volumes:
+   mysql:
+
 services:
   mysql:
     image: mysql:v1.0.0
     container_name: mysql ## --name=mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ExpenseApp@1
+      MYSQL_DATABASE: transactions
+      MYSQL_USER: expense
+      MYSQL_PASSWORD: ExpenseApp@1
+    volumes:
+    - source: mysql
+      target: /var/lib/mysql
+      type: volume  
   backend:
     image: backend:v1.0.0
     container_name: backend
